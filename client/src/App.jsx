@@ -2,8 +2,15 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { useEffect } from 'react'
 
 function App() {
+  const [username, setUsername] = useState('')
+  useEffect(() => {
+    fetch('/api/users')
+      .then((res) => res.json())
+      .then((data) => setUsername(data.username))
+  }, [])
   const [count, setCount] = useState(0)
 
   return (
@@ -19,7 +26,7 @@ function App() {
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          {username} is {count}
         </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
