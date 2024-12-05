@@ -1,5 +1,5 @@
 {
-  "name": "node-sql",
+  "name": "api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -14,8 +14,9 @@
   "devDependencies": {
     "dotenv": "^16.4.7",
     "mysql2": "^3.11.5",
-		"swagger-jsdoc": "^6.2.8",
-		"swagger-ui-express": "^5.0.1",
-		"yaml": "^2.6.1"
+    "nodemon": "^3.1.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "yaml": "^2.6.1"
   }
 }
