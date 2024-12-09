@@ -23,7 +23,7 @@ export default function Login() {
           />
           <label for="coding">Remember me</label>
         </div>
-        <Button text="Log In" />
+        <Button text="Log In" navigateTo="/" />
       </div>
     </div>
   );
