@@ -1,0 +1,22 @@
+.custom-button {
+  background-color: #422546;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 50px;
+  font-family: Inter, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 4px 5px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.custom-button:hover {
+  transform: scale(0.95);
+  box-shadow: none;
+}
+.custom-button:active {
+  transform: scale(0.95);
+  box-shadow: none;
+}
