@@ -28,11 +28,12 @@ class UserRepository {
       username,
       email,
       hashedPassword,
+      salt,
       profilePicture,
     } = user;
     const [result] = await this.connection.query(
-      `INSERT INTO users (firstname, lastname, username, email, profile_picture, hashed_password, role, status) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
+      `INSERT INTO users (firstname, lastname, username, email, profile_picture, hashed_password, salt, role, status) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
         firstname,
         lastname,
@@ -40,6 +41,7 @@ class UserRepository {
         email,
         profilePicture,
         hashedPassword,
+        salt,
         ROLES.USER,
         STATUS.ACTIVE,
       ]

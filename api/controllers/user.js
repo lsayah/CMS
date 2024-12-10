@@ -10,10 +10,7 @@ export async function createUser(req, res) {
     const userRepository = new UserRepository(connection);
     const tagRepository = new TagRepository(connection);
     const { email, password, username } = req.body;
-    const existinguser = await userRepository.findUserByUsername(
-      username,
-      email
-    );
+    const existinguser = await userRepository.findUserByUsername(username);
     const existingmail = await userRepository.findUserByEmail(email);
 
     if (existingmail) {
@@ -35,6 +32,7 @@ export async function createUser(req, res) {
     const hashedPassword = await hash(password, salt);
     const idUser = await userRepository.saveUser({
       hashedPassword,
+      salt,
       ...req.body,
     });
 

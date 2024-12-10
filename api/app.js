@@ -14,6 +14,7 @@ import "./connection.js";
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
 import postsRouter from "./routes/posts.js";
+import authRouter from "./routes/authentification.js";
 const file = readFileSync("./api.yml", "utf8");
 const swaggerDocument = parse(file);
 
@@ -28,6 +29,7 @@ app.use(
 );
 
 app.use("/api/users", usersRouter);
+app.use("/api/auth", authRouter);
 app.use("/api/posts", postsRouter);
 app.use("/api", serve, setup(swaggerDocument));
 app.use("/", indexRouter);

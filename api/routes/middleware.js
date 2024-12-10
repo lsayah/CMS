@@ -14,3 +14,8 @@ export function validateArticle(schema) {
     }
   };
 }
+
+export const getJWTconfig = () => ({
+  secret: process.env.APP_SECRET,
+  algorithms: ["HS256"],
+});
