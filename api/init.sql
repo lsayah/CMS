@@ -1,12 +1,20 @@
+DROP TABLE IF EXISTS users_choose_tags;
+DROP TABLE IF EXISTS posts_contain_tags;
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS users;
+
 CREATE TABLE users (
     id INT AUTO_INCREMENT NOT NULL,
-    name VARCHAR(100),
+    firstname VARCHAR(100),
     lastname VARCHAR(100),
-    mail VARCHAR(100),
+    email VARCHAR(100),
     role VARCHAR(100),
     status VARCHAR(100),
     username VARCHAR(100),
-    crypted_password VARCHAR(100),
+    hashed_password VARCHAR(100),
+    profile_picture VARCHAR(100),
     PRIMARY KEY (id)
 ) ENGINE = InnoDB;
 
@@ -17,7 +25,6 @@ CREATE TABLE posts (
     title VARCHAR(100),
     description VARCHAR(100),
     published_at DATETIME,
-    published_by VARCHAR(100),
     updated_at DATETIME,
     id_user INT NOT NULL,
     PRIMARY KEY (id),

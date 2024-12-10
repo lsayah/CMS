@@ -20,5 +20,5 @@
 ## Quick links
 
 - [Web App](http://localhost:5173)
-- [API](ttp://localhost:3030/api)
+- [API](http://localhost:3030/api)
 - [PhPMyAdmin](http://localhost:8081)
