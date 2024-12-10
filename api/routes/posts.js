@@ -1,9 +1,9 @@
-var express = require("express");
-const { postSchema } = require("../schemas/postSchema");
-const { createArticle } = require("../controllers/posts");
-const { validateArticle } = require("./middleware");
-const router = express.Router();
+import { Router } from "express";
+import { postSchema } from "../schemas/postSchema.js";
+import { createArticle } from "../controllers/posts.js";
+import { validateArticle } from "./middleware.js";
+const router = Router();
 
 router.post("/", validateArticle(postSchema), createArticle);
 
-module.exports = router;
+export default router;

@@ -1,8 +1,7 @@
 // Schemas/postSchema.js
-const { z } = require("zod");
+import { z } from "zod";
 
-exports.postSchema = z.object({
-  
+export const postSchema = z.object({
   title: z
     .string({
       required_error: "Le titre est requis",

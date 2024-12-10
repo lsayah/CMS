@@ -14,4 +14,4 @@ class PostRepository {
   }
 }
 
-module.exports = PostRepository;
+export default PostRepository;

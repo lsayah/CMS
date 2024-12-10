@@ -13,4 +13,4 @@ class TagRepository {
   }
 }
 
-module.exports = TagRepository;
+export default TagRepository;

@@ -1,4 +1,4 @@
-const { ROLES, STATUS } = require("../const");
+import { ROLES, STATUS } from "../const.js";
 
 class UserRepository {
   constructor(connection) {
@@ -48,4 +48,4 @@ class UserRepository {
   }
 }
 
-module.exports = UserRepository;
+export default UserRepository;

@@ -1,10 +1,10 @@
-exports.ROLES = {
+export const ROLES = {
   ADMIN: "admin",
   MODERATOR: "moderator",
   USER: "user",
 };
 
-exports.STATUS = {
+export const STATUS = {
   ACTIVE: "active",
   INACTIVE: "inactive",
   BANNED: "banned",

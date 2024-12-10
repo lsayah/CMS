@@ -1,5 +1,7 @@
-const connection = require("../connection");
-exports.createArticle = async (req, res) => {
+import getConnection from "../connection.js";
+
+export async function createArticle(req, res) {
+  const connection = getConnection();
   const postRepository = new PostRepository(connection);
   try {
     const body = req.body;
@@ -14,4 +16,4 @@ exports.createArticle = async (req, res) => {
       error: error.message,
     });
   }
-};
+}

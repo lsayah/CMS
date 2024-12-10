@@ -1,10 +1,10 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const getConnection = require("../connection");
-const UserRepository = require("../repository/user");
-const TagRepository = require("../repository/tags");
+import { genSalt, hash } from "bcrypt";
+import jwt from "jsonwebtoken";
+import getConnection from "../connection.js";
+import UserRepository from "../repository/user.js";
+import TagRepository from "../repository/tags.js";
 
-exports.createUser = async (req, res) => {
+export async function createUser(req, res) {
   try {
     const connection = await getConnection();
     const userRepository = new UserRepository(connection);
@@ -31,8 +31,8 @@ exports.createUser = async (req, res) => {
     }
 
     // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const salt = await genSalt(10);
+    const hashedPassword = await hash(password, salt);
     const idUser = await userRepository.saveUser({
       hashedPassword,
       ...req.body,
@@ -49,4 +49,4 @@ exports.createUser = async (req, res) => {
       error: error.message,
     });
   }
-};
+}

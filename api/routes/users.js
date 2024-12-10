@@ -1,16 +1,14 @@
-var express = require('express');
-const { createUserSchema } = require('../schemas/userSchema');
-var router = express.Router();
-const { validateArticle } = require("./middleware");
-const { createUser } = require("../controllers/user");
+import { Router } from "express";
+import { createUserSchema } from "../schemas/userSchema.js";
+import { validateArticle } from "./middleware.js";
+import { createUser } from "../controllers/user.js";
 
-
+var router = Router();
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send({username: 'ruchdane'});
+router.get("/", function (req, res, next) {
+  res.send({ username: "ruchdane" });
 });
 
-router.post('/', validateArticle(createUserSchema), createUser) 
+router.post("/", validateArticle(createUserSchema), createUser);
 
-
-module.exports = router;
+export default router;
