@@ -68,7 +68,7 @@ export default function Login() {
             />
             <label htmlFor="RememberMe">Remember me</label>
           </div>
-          <button type="submit">Log In</button>
+          <Button type="submit" text="Log In" />
         </form>
         {message && <p>{message}</p>}{" "}
         {/* Affiche les messages d'erreur ou succès */}
