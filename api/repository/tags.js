@@ -20,6 +20,11 @@ class TagRepository {
     );
     return result.insertId;
   }
+
+  async getAllTags() {
+    const [rows] = await this.connection.query("SELECT * FROM tags ORDER BY name ASC");
+    return rows;  
+  }
 }
 
 

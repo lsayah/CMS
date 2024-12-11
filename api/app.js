@@ -15,6 +15,7 @@ import "./connection.js";
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
 import postRouter from "./routes/posts.js";
+import tagsRouter from "./routes/tags.js";
 import authRouter from "./routes/authentification.js";
 const file = readFileSync("./api.yml", "utf8");
 const swaggerDocument = parse(file);
@@ -33,6 +34,7 @@ app.use(jwt(jwtConfig).unless({ path: ["/api", "/api/auth/login"] }));
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/posts", postRouter);
+app.use("/api/tags", tagsRouter);
 app.use("/api", serve, setup(swaggerDocument));
 app.use("/", indexRouter);
 app.use(function (err, req, res, next) {
