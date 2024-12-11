@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: CMS
-  version: '0.1'
+  version: "0.1"
 tags:
   - name: auth
     description: Tout ce qui est lié à l'authentification
@@ -13,10 +13,11 @@ tags:
     description: Tout ce qui est lié à la gestion des commentaires sur les articles
   - name: tags
     description: Tout ce qui est lié à la gestion des catégories des articles
+
 security:
-  - BearerAuth: [] 
+  - BearerAuth: []
 paths:
-  /auth/login: 
+  /api/auth/login:
     post:
       tags:
         - auth
@@ -29,39 +30,117 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserLogin'
+              $ref: "#/components/schemas/UserLogin"
         required: true
       responses:
-        '200':
+        "200":
           description: Connexion réussie
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        '400':
+                $ref: "#/components/schemas/User"
+        "400":
           description: Informations invalides (email ou mot de passe)
-        '404':
+        "404":
           description: Utilisateur non trouvé
-        '422':
+        "422":
           description: Erreur de validation
-  /auth/logout: 
+  /api/auth/logout:
     post:
       tags:
         - auth
-      summary: Se décconnecter 
+      summary: Se décconnecter
       description: Se connecter de son compte
       operationId: logoutUser
       responses:
-        '200':
+        "200":
           description: Déconnexion réussie
-        '400':
+        "400":
           description: Informations invalides (email ou mot de passe)
-        '404':
+        "404":
           description: Utilisateur non trouvé
-        '422':
+        "422":
           description: Erreur de validation
 
-  /users:
+  /api/users:
+    post:
+      summary: Créer un compte utilisateur
+      description: Créer un compte utilisateur avec un email et un mot de passe
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstname:
+                  type: string
+                  description: First name of the user.
+                  minLength: 2
+                  maxLength: 50
+                lastname:
+                  type: string
+                  description: Last name of the user.
+                  minLength: 2
+                  maxLength: 50
+                username:
+                  type: string
+                  description: Unique username for the user.
+                  minLength: 3
+                  maxLength: 30
+                email:
+                  type: string
+                  format: email
+                  description: Valid email address of the user.
+                password:
+                  type: string
+                  description: User's password.
+                  minLength: 6
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: List of tags or preferences.
+                  minItems: 1
+                profilePicture:
+                  type: string
+                  description: URL for the user's profile picture.
+                  nullable: true
+              required:
+                - firstname
+                - lastname
+                - username
+                - email
+                - password
+                - tags
+      responses:
+        "201":
+          description: User created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier for the created user.
+                  message:
+                    type: string
+                    description: Success message.
+        "400":
+          description: Invalid input data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message describing what went wrong.
+        "500":
+          description: Internal server error.
     put:
       tags:
         - users
@@ -73,28 +152,28 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateUser'
+              $ref: "#/components/schemas/UpdateUser"
         required: true
       responses:
-        '200':
+        "200":
           description: Utilisateur mis à jour avec succès
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        '400':
+                $ref: "#/components/schemas/User"
+        "400":
           description: Informations invalides
-        '404':
+        "404":
           description: Utilisateur non trouvé
-        '422':
+        "422":
           description: Erreur de validation
 
-  /users/{userId}:
+  /api/users/{userId}:
     patch:
       tags:
         - users
       summary: Modifier l'état du compte d'un utilisateur
-      description: Modifier l'état du compte d'un utilisateurr par son ID. NB Seul un administrateur peut modifier l'état du compte d'un utilisateur 
+      description: Modifier l'état du compte d'un utilisateurr par son ID. NB Seul un administrateur peut modifier l'état du compte d'un utilisateur
       operationId: changeUserState
       security:
         - BearerAuth: [admin]
@@ -113,18 +192,18 @@ paths:
               type: object
               properties:
                 status:
-                  $ref: '#/components/schemas/UserAccountState'
+                  $ref: "#/components/schemas/UserAccountState"
               required:
                 - email
                 - password
-                - status      
+                - status
       responses:
-        '204':
+        "204":
           description: Utilisateur supprimé avec succès
-        '404':
+        "404":
           description: Utilisateur non trouvé
 
-  /posts:
+  /api/posts:
     post:
       tags:
         - posts
@@ -136,18 +215,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Post'
+              $ref: "#/components/schemas/Post"
         required: true
       responses:
-        '201':
+        "201":
           description: Article créé avec succès
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Post'
-        '400':
+                $ref: "#/components/schemas/Post"
+        "400":
           description: Requête invalide
-        '422':
+        "422":
           description: Erreur de validation
 
     get:
@@ -170,20 +249,20 @@ paths:
           description: une chaine de caractère pour filtrer les posts
           required: false
           schema:
-              type: string
+            type: string
       responses:
-        '200':
+        "200":
           description: Liste des articles
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Post'
-        '404':
+                  $ref: "#/components/schemas/Post"
+        "404":
           description: Aucun article trouvé
 
-  /posts/{postId}:
+  /api/posts/{postId}:
     get:
       tags:
         - posts
@@ -198,13 +277,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Article trouvé
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Post'
-        '404':
+                $ref: "#/components/schemas/Post"
+        "404":
           description: Article non trouvé
 
     patch:
@@ -225,20 +304,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Post'
+              $ref: "#/components/schemas/Post"
         required: true
       responses:
-        '200':
+        "200":
           description: Article mis à jour avec succès
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Post'
-        '400':
+                $ref: "#/components/schemas/Post"
+        "400":
           description: Informations invalides
-        '404':
+        "404":
           description: Article non trouvé
-        '422':
+        "422":
           description: Erreur de validation
 
     delete:
@@ -255,13 +334,13 @@ paths:
           schema:
             type: integer
       responses:
-        '204':
+        "204":
           description: Article supprimé avec succès
-        '404':
+        "404":
           description: Article non trouvé
 
-  /posts/{postId}/comments:
-   get:
+  /api/posts/{postId}/comments:
+    get:
       tags:
         - comments
         - posts
@@ -269,20 +348,20 @@ paths:
       description: Récupérer les commentaires d'un article spécifique
       operationId: getComments
       responses:
-        '200':
+        "200":
           description: Liste des commentaires récupérée avec succès
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Comment'
-        '400':
+                  $ref: "#/components/schemas/Comment"
+        "400":
           description: Paramètres de requête invalides
-        '404':
-          description: Ressource parente non trouvée    
-  
-  /comments:
+        "404":
+          description: Ressource parente non trouvée
+
+  /api/comments:
     post:
       tags:
         - comments
@@ -294,23 +373,23 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Comment'
+              $ref: "#/components/schemas/Comment"
         required: true
       responses:
-        '201':
+        "201":
           description: Commentaire ajouté avec succès
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Comment'
-        '400':
+                $ref: "#/components/schemas/Comment"
+        "400":
           description: Commentaire invalide
-        '404':
+        "404":
           description: Article non trouvé
-        '422':
+        "422":
           description: Erreur de validation
 
-  /comments/{commentId}:
+  /api/comments/{commentId}:
     put:
       tags:
         - comments
@@ -329,20 +408,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Comment'
+              $ref: "#/components/schemas/Comment"
         required: true
       responses:
-        '200':
+        "200":
           description: Commentaire mis à jour avec succès
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Comment'
-        '400':
+                $ref: "#/components/schemas/Comment"
+        "400":
           description: Commentaire invalide
-        '404':
+        "404":
           description: Commentaire non trouvé
-        '422':
+        "422":
           description: Erreur de validation
 
     delete:
@@ -359,58 +438,58 @@ paths:
           schema:
             type: integer
       responses:
-        '204':
+        "204":
           description: Commentaire supprimé avec succès
-        '404':
+        "404":
           description: Commentaire non trouvé
 
-  /comments/{commentId}/replies:
+  /api/comments/{commentId}/replies:
     get:
-          tags:
-            - comments
-          summary: Obtenir les réponses d'un commentaire
-          description: Récupérer toutes les réponses associées à un commentaire spécifique
-          operationId: getCommentReplies
-          parameters:
-            - name: commentId
-              in: path
-              description: ID du commentaire dont on veut obtenir les réponses
-              required: true
+      tags:
+        - comments
+      summary: Obtenir les réponses d'un commentaire
+      description: Récupérer toutes les réponses associées à un commentaire spécifique
+      operationId: getCommentReplies
+      parameters:
+        - name: commentId
+          in: path
+          description: ID du commentaire dont on veut obtenir les réponses
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Liste des réponses récupérée avec succès
+          content:
+            application/json:
               schema:
-                type: integer
-          responses:
-            '200':
-              description: Liste des réponses récupérée avec succès
-              content:
-                application/json:
-                  schema:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Comment'
-            '400':
-              description: Paramètres de requête invalides
-            '404':
-              description: Commentaire non trouvé
-    
-  /tags:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Comment"
+        "400":
+          description: Paramètres de requête invalides
+        "404":
+          description: Commentaire non trouvé
+
+  /api/tags:
     get:
-        tags:
-          - tags
-        summary: Obtenir la liste des catégories
-        description: Récupérer la liste de toutes les catégories disponibles
-        operationId: getTags
-        responses:
-          '200':
-            description: Liste des catégories récupérée avec succès
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Tag'
-          '404':
-            description: Aucune catégorie trouvée
-  
+      tags:
+        - tags
+      summary: Obtenir la liste des catégories
+      description: Récupérer la liste de toutes les catégories disponibles
+      operationId: getTags
+      responses:
+        "200":
+          description: Liste des catégories récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Tag"
+        "404":
+          description: Aucune catégorie trouvée
+
     post:
       tags:
         - tags
@@ -422,21 +501,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Tag'
+              $ref: "#/components/schemas/Tag"
         required: true
       responses:
-        '201':
+        "201":
           description: Catégorie ajoutée avec succès
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tag'
-        '400':
+                $ref: "#/components/schemas/Tag"
+        "400":
           description: Catégorie invalide
-        '422':
+        "422":
           description: Erreur de validation
 
-  /tags/{tagId}:
+  /api/tags/{tagId}:
     delete:
       tags:
         - tags
@@ -451,9 +530,9 @@ paths:
           schema:
             type: integer
       responses:
-        '204':
+        "204":
           description: Catégorie supprimée avec succès
-        '404':
+        "404":
           description: Catégorie non trouvée
 
 components:
