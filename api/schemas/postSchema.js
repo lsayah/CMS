@@ -15,4 +15,6 @@ export const postSchema = z.object({
     })
     .trim()
     .min(10, "Le contenu doit contenir au moins 10 caractères"),
+
+  tags: z.array(z.number()).min(1, "selectionner au moins une tag"),
 });

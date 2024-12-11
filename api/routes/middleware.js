@@ -21,9 +21,8 @@ export function validateArticle(schema) {
 export const getJWTconfig = () => ({
   secret: process.env.APP_SECRET,
   algorithms: ["HS256"],
+  onExpired: (req, payload, done) => {},
 });
-
-
 
 //ajout logout
 
@@ -36,7 +35,9 @@ export const checkRevokedToken = (req, res, next) => {
 
   // Vérifie si le token a été révoqué
   if (revokedTokens.has(token)) {
-    return res.status(401).json({ message: "Token révoqué, veuillez vous reconnecter." });
+    return res
+      .status(401)
+      .json({ message: "Token révoqué, veuillez vous reconnecter." });
   }
 
   try {

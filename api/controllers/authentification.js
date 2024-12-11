@@ -20,9 +20,9 @@ export async function login(req, res) {
   }
   const jwtConfig = getJWTconfig();
   console.log(jwtConfig);
-  const { hashed_password: hashedPassword, role } = existinguser;
+  const { hashed_password: hashedPassword, role, id } = existinguser;
   if (await compare(password, hashedPassword)) {
-    const token = jwt.sign({ email, role }, jwtConfig.secret, {
+    const token = jwt.sign({ email, role, id }, jwtConfig.secret, {
       algorithm: jwtConfig.algorithms[0],
       expiresIn: "1h",
     });
