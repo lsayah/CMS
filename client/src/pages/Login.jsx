@@ -10,9 +10,9 @@ export default function Login() {
       </div>
       <div class="login-container">
         <h1>Login</h1>
-        <h3>Email :</h3>
+        <h3>Email</h3>
         <InputField type="email" placeholder="Email" />
-        <h3>Password :</h3>
+        <h3>Password</h3>
         <InputField type="password" placeholder="Password" />
         <div>
           <input

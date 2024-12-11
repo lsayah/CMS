@@ -1,0 +1,18 @@
+.top-creators {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.creator-list {
+  display: flex;
+  gap: 10px;
+}
+
+.creator-card {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}

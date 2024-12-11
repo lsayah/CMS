@@ -1,0 +1,12 @@
+.latest-articles {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.article-card {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+}

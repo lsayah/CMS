@@ -1,10 +1,16 @@
-body {
+/* CSS de base */
+body,
+html {
+  margin: 0;
+  padding: 0;
   background-color: #202433;
   font-family: Inter, sans-serif;
 }
+
 div {
   display: flex;
 }
+
 .rectangle {
   background: linear-gradient(150deg, #33394f, #422546);
   height: 700px;
@@ -12,6 +18,7 @@ div {
   border-radius: 15px;
   margin-left: 100px;
 }
+
 .login-container {
   display: flex;
   flex-direction: column;
@@ -20,11 +27,99 @@ div {
   width: 570px;
   padding-left: 15%;
 }
+
 .login-container h1 {
   font-size: 40px;
   font-weight: bold;
   color: #f6f6f6;
 }
+
 .login-container label {
   padding: 15px;
+}
+
+::-moz-selection {
+  background: #422546;
+}
+
+::-webkit-selection {
+  background: #422546;
+}
+
+::selection {
+  background: #422546;
+}
+
+@media (max-width: 1024px) {
+  .rectangle {
+    height: 600px;
+    width: 400px;
+    margin-left: 50px;
+  }
+
+  .login-container {
+    height: auto;
+    width: 500px;
+    padding-left: 10%;
+  }
+
+  .login-container h1 {
+    font-size: 32px;
+  }
+
+  .login-container h3 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  body,
+  html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  div {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rectangle {
+    display: none;
+  }
+
+  .login-container {
+    width: 90%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-container h1 {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .login-container h3 {
+    font-size: 16px;
+  }
+
+  .login-container label {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .login-container input[type="checkbox"] {
+    margin-right: 5px;
+  }
+
+  .login-container button {
+    width: 100%;
+  }
 }
