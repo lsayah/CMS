@@ -3,6 +3,9 @@ import UserRepository from "../repository/user.js";
 import { compare } from "bcrypt";
 import jwt from "jsonwebtoken";
 import { getJWTconfig } from "../routes/middleware.js";
+
+const revokedTokens = new Set(); // ajout logout
+
 export async function login(req, res) {
   const { email, password } = req.body;
 
@@ -35,3 +38,21 @@ export async function login(req, res) {
     });
   }
 }
+
+
+// logout test
+
+export function logout(req, res) {
+    const token = req.headers.authorization?.split(" ")[1]; 
+  
+    if (!token) {
+      return res.status(400).json({ message: "Token manquant" });
+    }
+  
+    // Ajouter le token à la liste des tokens révoqués
+    revokedTokens.add(token);
+    res.status(200).json({ message: "Déconnexion réussie" });
+  }
+  
+  // Exporter la liste des tokens révoqués pour les middlewares
+  export { revokedTokens };
