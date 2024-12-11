@@ -1,0 +1,25 @@
+.input-container {
+  margin: 10px 0;
+}
+
+.input-field {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #3e455e;
+  border-radius: 4px;
+  width: 100%;
+  background-color: #33394f;
+  height: 30px;
+  box-shadow: 4px 5px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.input-field:focus {
+  outline: none;
+  border-color: #f6f6f6;
+  transition: 0.7s;
+}
+.input-field:hover {
+  transform: scale(0.98);
+  box-shadow: none;
+}
