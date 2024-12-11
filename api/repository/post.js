@@ -5,10 +5,10 @@ class PostRepository {
 
   async createPost(post) {
     const [result] = await this.connection.query(
-      `INSERT INTO post 
-      (title, description, pictues,  id_user) 
+      `INSERT INTO posts 
+      (title, content, pictures,  id_user) 
       VALUES (?, ?, ?, ?)`,
-      [post.title, post.description, post.picture, post.user_id]
+      [post.title, post.content, post.picture, post.id_user]
     );
     return result.insertId;
   }

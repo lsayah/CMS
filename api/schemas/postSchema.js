@@ -9,6 +9,7 @@ export const postSchema = z.object({
     .trim()
     .min(3, "Le titre doit contenir au moins 3 caractères"),
 
+  picture: z.string(),
   content: z
     .string({
       required_error: "Le contenu est requis",

@@ -11,6 +11,16 @@ class TagRepository {
     );
     return result.insertId;
   }
+
+  async savePostTags(tags, idPost) {
+    const value = tags.map((tagId) => [idPost, tagId]);
+    const [result] = await this.connection.query(
+      `INSERT INTO posts_contain_tags (id_post, id_tag) VALUES ?`,
+      [value]
+    );
+    return result.insertId;
+  }
 }
+
 
 export default TagRepository;

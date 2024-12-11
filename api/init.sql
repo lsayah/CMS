@@ -23,7 +23,7 @@ CREATE TABLE posts (
     id INT(100) AUTO_INCREMENT NOT NULL,
     pictures VARCHAR(100),
     title VARCHAR(100),
-    description VARCHAR(100),
+    content TEXT,
     published_at DATETIME,
     updated_at DATETIME,
     id_user INT NOT NULL,
