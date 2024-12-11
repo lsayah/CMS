@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Feed from "./pages/Feed";
 import Post from "./pages/Post";
+import CreateProfile from "./pages/CreateProfile";
 function App() {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/post" element={<Post />} />
         <Route path="/feed" element={<Feed />} />
+        <Route path="/createprofile" element={<CreateProfile />} />
       </Routes>
     </BrowserRouter>
   );
