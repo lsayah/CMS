@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/Sidebar.css";
+import Navigation from "./Navigation/Navigation.jsx";
 
 const Sidebar = ({ isNavOpen, toggleNav }) => {
   return (
@@ -7,16 +8,7 @@ const Sidebar = ({ isNavOpen, toggleNav }) => {
       <button className="toggle-btn" onClick={toggleNav}>
         {isNavOpen ? "←" : "→"}
       </button>
-      <nav className="menu">
-        <a href="/profile">Profile</a>
-        <a href="/">Home</a>
-        <a href="/post">Create Post</a>
-      </nav>
-      <div className="bottom-options">
-        <button>Filters</button>
-        <button>Follows</button>
-        <button>Pay us a coffee!</button>
-      </div>
+      {isNavOpen && <Navigation />}
     </aside>
   );
 };
