@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { RoutesDefinition } from "../Routes.jsx";
 import "../styles/Login.css";
-import Button from "../components/button.jsx";
-import InputField from "../components/InputField.jsx";
+import Button from "../components/Button.jsx";
+import LabelInput from "../components/InputField.jsx";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -31,48 +33,71 @@ export default function Login() {
       const data = await response.json();
       localStorage.setItem("token", data.token);
       navigate("/");
-      setMessage(data.message || "Connexion réussie !");
     } catch (error) {
       setMessage(error.message);
     }
   };
 
-  return (
-    <div>
-      <div className="logo-container">
-        <div className="rectangle"></div>
-      </div>
-      <div className="login-container">
-        <h1>Login</h1>
-        <form onSubmit={handleLogin}>
-          <h3>Email</h3>
-          <InputField
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <h3>Password</h3>
-          <InputField
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div>
-            <input
-              type="checkbox"
-              id="RememberMe"
-              name="interest"
-              value="RememberMe"
-            />
-            <label htmlFor="RememberMe">Remember me</label>
-          </div>
-          <Button type="submit" text="Log In" />
-        </form>
-        {message && <p>{message}</p>}{" "}
-        {/* Affiche les messages d'erreur ou succès */}
-      </div>
+  return <>
+    <div className="login-hero login-hero-full">
+      <p></p>
+      <p>
+        <strong>
+          <span className="font-unique">P</span>eople's
+          <br />
+          HUB
+        </strong>
+      </p>
+      <p>
+        <strong>S</strong>hare, <strong>L</strong>earn, <strong>G</strong>row <strong>T</strong>ogether
+      </p>
     </div>
-  );
+    <p class="login-hero login-hero-section">
+      <strong>
+        <span className="font-unique">P</span>eople's
+        <br />
+        HUB
+      </strong>
+    </p>
+    <div className="login-form">
+      <h1>Login</h1>
+      <form onSubmit={handleLogin}>
+        <LabelInput
+          id="email"
+          type="email"
+          label="Email"
+          placeholder="john.doe@gmail.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <LabelInput
+          id="password"
+          type="password"
+          label="Password"
+          placeholder="********"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <LabelInput
+          type="checkbox"
+          id="RememberMe"
+          label="Remember Me"
+          name="interest"
+          value="RememberMe"
+        />
+        <div className="login-actions">
+          <Button type="submit"> Log In </Button>
+          <Button
+            onClick={() => navigate(RoutesDefinition.SIGNUP)}
+          >
+            Sign up
+          </Button>
+        </div>
+      </form>
+      {message && <p>{message}</p>}{" "}
+    </div>
+    <p class="login-hero login-hero-section">
+      <strong>S</strong>hare, <strong>L</strong>earn, <strong>G</strong>row <strong>T</strong>ogether
+    </p>
+  </>
 }

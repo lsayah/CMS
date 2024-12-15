@@ -1,18 +1,13 @@
 import React from "react";
 import "../styles/InputField.css";
 
-const InputField = ({ type, value, onChange, placeholder }) => {
+const LabelInput = (props) => {
   return (
-    <div className="input-container">
-      <input
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        className="input-field"
-      />
+    <div className="label-input">
+      <label htmlFor={props.id}> {props.label}</label>
+      <input {...props}     />
     </div>
   );
 };
 
-export default InputField;
+export default LabelInput;

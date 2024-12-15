@@ -1,4 +1,4 @@
-.custom-button {
+.button {
   background-color: #422546;
   color: white;
   border: none;
@@ -12,11 +12,11 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.custom-button:hover {
-  transform: scale(0.95);
+.button:hover {
   box-shadow: none;
 }
-.custom-button:active {
+
+.button:active {
   transform: scale(0.95);
   box-shadow: none;
 }

@@ -1,25 +1,48 @@
-.input-container {
-  margin: 10px 0;
+.label-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
 }
 
-.input-field {
-  padding: 8px 12px;
-  font-size: 14px;
+.label-input label {
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+.label-input:has(input[type='checkbox']) {
+  flex-direction: row-reverse;
+  width: fit-content;
+  gap: 1rem;
+}
+
+.label-input:has(input[type='checkbox']) label {
+  margin-bottom: 0;
+}
+
+input {
+  padding: 1.25rem 0.75rem;
   border: 1px solid #3e455e;
   border-radius: 4px;
   width: 100%;
   background-color: #33394f;
-  height: 30px;
   box-shadow: 4px 5px rgba(0, 0, 0, 0.4);
-  cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-.input-field:focus {
+
+input[type='checkbox'] {
+  width: 32px;
+  height: 32px;
+  accent-color: #3e455e;
+  box-shadow: none;
+}
+
+
+input:focus {
   outline: none;
   border-color: #f6f6f6;
   transition: 0.7s;
 }
-.input-field:hover {
-  transform: scale(0.98);
+
+input:hover {
   box-shadow: none;
 }
