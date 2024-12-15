@@ -1,0 +1,11 @@
+.editor-actions {
+  padding: 1rem .75rem;
+  background: #422546;
+  display: flex;
+  margin-bottom: 1rem;
+  gap: .75rem;
+}
+
+.post-editor textarea {
+  width: 100%
+}

@@ -1,0 +1,50 @@
+#create-post-page {
+  padding: 2rem 4rem;
+  width: 100%;
+}
+
+#create-post-page input {
+  padding: 0.5rem 1rem;
+}
+
+
+#create-post-page .post-meta {
+  margin-top: 2rem;
+}
+
+#create-post-page {
+  padding: 0.5rem 1rem;
+}
+
+
+.create-post-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: end;
+}
+
+@media (min-width: 768px) {}
+
+
+@media (min-width: 1024px) {
+  #create-post-page .post-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  #create-post-page .post-meta>* {
+    flex: 1;
+  }
+
+  #create-post-page .post-editor {
+    max-width: 70%;
+  }
+
+  .create-post-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
