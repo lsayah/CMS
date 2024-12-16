@@ -3,7 +3,6 @@
   src: url("./assets/fonts/LeckerliOne-Regular.ttf");
 }
 
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -89,7 +88,6 @@ button:focus-visible {
 ::selection {
   background: #422546;
 }
-
 
 .font-unique {
   font-family: "Leckerli One", serif;
