@@ -6,6 +6,9 @@ export const createUserSchema = z.object({
   username: z.string().min(3).max(30),
   email: z.string().email(),
   password: z.string().min(6),
-  tags: z.array(z.number()).min(1),
-  profilePicture: z.string().optional(),
+  tags: z.preprocess(
+    (value) => value.split(",").map(Number),
+    z.array(z.number()).min(1)
+  ),
+  Picture: z.string().optional(),
 });

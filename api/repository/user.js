@@ -22,14 +22,8 @@ class UserRepository {
   }
 
   async saveUser(user) {
-    const {
-      firstname,
-      lastname,
-      username,
-      email,
-      hashedPassword,
-      profilePicture,
-    } = user;
+    const { firstname, lastname, username, email, hashedPassword, Picture } =
+      user;
     const [result] = await this.connection.query(
       `INSERT INTO users (firstname, lastname, username, email, profile_picture, hashed_password, role, status) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
@@ -38,13 +32,24 @@ class UserRepository {
         lastname,
         username,
         email,
-        profilePicture,
+        Picture,
         hashedPassword,
         ROLES.USER,
         STATUS.ACTIVE,
       ]
     );
     return result.insertId;
+  }
+
+  async updateProfilPicture(idUser, Picture) {
+    try {
+      await this.connection.execute(
+        `UPDATE users SET profile_picture = ? WHERE id = ?;`,
+        [Picture, idUser]
+      );
+    } catch (error) {
+      throw new Error("Error updating profile picture:");
+    }
   }
 }
 

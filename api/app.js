@@ -11,6 +11,7 @@ import { join } from "path";
 import { getJWTconfig } from "./routes/middleware.js";
 import { expressjwt as jwt } from "express-jwt";
 
+
 import "./connection.js";
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
@@ -30,13 +31,13 @@ app.use(cookieParser());
 app.use(
   staticFile(join(path.dirname(fileURLToPath(import.meta.url)), "public"))
 );
-app.use(jwt(jwtConfig).unless({ path: ["/api", "/api/auth/login"] }));
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/posts", postRouter);
 app.use("/api/tags", tagsRouter);
 app.use("/api", serve, setup(swaggerDocument));
 app.use("/", indexRouter);
+app.use(jwt(jwtConfig).unless({ path: ["/api", "/api/auth/login"] }));
 app.use(function (err, req, res, next) {
   if (err.name === "UnauthorizedError") {
     res.status(401).send({

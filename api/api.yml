@@ -65,13 +65,13 @@ paths:
   /api/users:
     post:
       summary: Créer un compte utilisateur
-      description: Créer un compte utilisateur avec un email et un mot de passe
+      description: Créer un compte utilisateur avec un email, un mot de passe, et une photo de profil
       tags:
         - users
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
               properties:
@@ -101,12 +101,13 @@ paths:
                 tags:
                   type: array
                   items:
-                    type: string
+                    type: number
                   description: List of tags or preferences.
                   minItems: 1
-                profilePicture:
+                Picture:
                   type: string
-                  description: URL for the user's profile picture.
+                  format: binary
+                  description: URL for the user's profile picture (optional).
                   nullable: true
               required:
                 - firstname
@@ -140,7 +141,9 @@ paths:
                     type: string
                     description: Error message describing what went wrong.
         "500":
-          description: Internal server error.
+          description: Internal server error
+
+  /api/users/{userId}:
     put:
       tags:
         - users
@@ -168,7 +171,6 @@ paths:
         "422":
           description: Erreur de validation
 
-  /api/users/{userId}:
     patch:
       tags:
         - users
@@ -213,10 +215,25 @@ paths:
       requestBody:
         description: Créer un nouvel article
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: "#/components/schemas/Post"
-        required: true
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Titre de l'article
+                content:
+                  type: string
+                  description: Contenu de l'article
+                Picture:
+                  type: string
+                  format: binary
+                  description: Image associée à l'article (facultatif)
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: Liste des tags associés à l'article
       responses:
         "201":
           description: Article créé avec succès
