@@ -1,4 +1,22 @@
+.navigation {
+  background-color: #202433;
+  display: flex;
+  gap: 2.125rem;
+  margin: 3rem 1rem;
+}
+
 .navigation .button {
-  margin: 10px;
+  padding: 1.3125rem;
+  display: flex;
+  justify-content: center;
   background-color: #272d43;
+}
+
+@media (min-width: 768px) {
+  .navigation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.125rem;
+  }
+
 }

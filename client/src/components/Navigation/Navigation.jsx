@@ -1,25 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./Navigation.css";
 import Button from "../Button.jsx";
-import Home from "../../assets/icons/Home.svg";
-import UserProfile from "../../assets/icons/UserProfile.svg";
-import Bookmark from "../../assets/icons/Bookmark.svg";
-import AddPost from "../../assets/icons/AddPost.svg";
-const Navigation = () => {
+import { Bookmark, Home, PlusCircle, UserCircle } from "lucide-react";
+
+const Navigation = ({ className }) => {
   return (
-    <nav className="navigation">
+    <nav className={`navigation ${className ?? ""}`}>
       <Button>
-        <img src={Home} alt="Home" />
+        <Home  width={32} height={32}/>
       </Button>
       <Button>
-        <img src={UserProfile} alt="User-Profile"></img>
+        <UserCircle  width={32} height={32}/>
       </Button>
       <Button>
-        <img src={Bookmark} alt="Bookmark"></img>
+        <Bookmark width={32} height={32}/>
       </Button>
       <Button>
-        <img src={AddPost} alt="AddPost"></img>
+        <PlusCircle width={32} height={32}/>
       </Button>
     </nav>
   );

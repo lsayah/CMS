@@ -1,0 +1,19 @@
+[data-accordeon] [data-content] {
+  display: none;
+}
+
+[data-accordeon=true] [data-content] {
+  display: block;
+}
+
+[data-accordeon] [data-header] {
+  display: flex;
+  transition: transform .5s eas-in;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #3e455e;
+}
+
+[data-accordeon=true] svg {
+  transform: rotate(180deg);
+}

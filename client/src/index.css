@@ -92,3 +92,12 @@ button:focus-visible {
 .font-unique {
   font-family: "Leckerli One", serif;
 }
+
+.flex {
+  display: flex;
+  gap: 1rem;
+}
+
+.text-small {
+  font-size: 0.725rem;
+}

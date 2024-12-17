@@ -63,7 +63,7 @@
 }
 
 @media (min-width: 1024px) {
-  #root {
+  #root:has(.login-hero) {
     display: flex;
     padding: 2.125rem;
   }
