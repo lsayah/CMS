@@ -28,3 +28,26 @@ export async function postArticle(req, res) {
     });
   }
 }
+
+export async function getPostsByTags(req, res) {
+  const connection = await getConnection();
+  const postRepository = new PostRepository(connection);
+  try {
+    const { tags } = req.query;
+    if (!tags) {
+      return res.status(400).json({
+        success: false,
+        message: "Tags query parameter is required",
+      });
+    }
+    const tagsArray = tags.split(",");
+    const posts = await postRepository.findPostsByTags(tagsArray);
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+}
+

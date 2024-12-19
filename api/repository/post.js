@@ -12,6 +12,18 @@ class PostRepository {
     );
     return result.insertId;
   }
+
+  async findPostsByTags(tags) {
+    const [result] = await this.connection.query(
+      `SELECT p.* FROM posts p
+      JOIN users_choose_tags uct ON p.id_user = uct.id_user
+      WHERE uct.id_tag IN (?)`,
+      [tags]
+    );
+    return result;
+  }
 }
+
+
 
 export default PostRepository;

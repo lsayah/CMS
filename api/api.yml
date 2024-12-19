@@ -254,7 +254,7 @@ paths:
         - posts
       summary: Récupérer la liste des articles
       description: Récupérer la liste des articles filtrable par tags ou une chaine de recherche
-      operationId: getPosts
+      operationId: getPostsByTags
       parameters:
         - name: tags
           in: query
