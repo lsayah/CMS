@@ -5,7 +5,7 @@ const LabelInput = (props) => {
   return (
     <div className="label-input">
       <label htmlFor={props.id}> {props.label}</label>
-      <input {...props}     />
+      <input className="input" {...props}     />
     </div>
   );
 };

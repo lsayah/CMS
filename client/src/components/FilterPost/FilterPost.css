@@ -1,0 +1,53 @@
+.filter-input {
+  display: flex;
+  align-items: center;
+  border: 1px transparent blue;
+  padding: 1rem 1.25rem;
+  gap: 0;
+}
+
+.filter-input>* {
+  box-shadow: none;
+  border-radius: 25px;
+  border: none;
+  background-color: #33394F;
+  padding: 5px 14px;
+}
+
+
+.filter-input input {
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.filter-input button {
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+
+.filter-post .tag-selected {
+  list-style: none;
+}
+
+.filter-post .tag-element {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.add-tag {
+  display: flex;
+}
+
+.add-tag>button {
+  margin-inline: auto;
+}
+
+.add-tag .tag-selection {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.25rem;
+  list-style: none;
+}

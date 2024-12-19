@@ -1,19 +1,25 @@
-[data-accordeon] [data-content] {
+.accordeon .accordeon-content {
   display: none;
+  transition: all .5s ease-in;
 }
 
-[data-accordeon=true] [data-content] {
+.accordeon[data-open=true] .accordeon-content {
   display: block;
 }
 
-[data-accordeon] [data-header] {
+.accordeon .accordeon-header {
   display: flex;
-  transition: transform .5s eas-in;
+  transition: transform .5s ease-in;
   justify-content: space-between;
   padding: 1rem 2rem;
   border-bottom: 1px solid #3e455e;
 }
 
-[data-accordeon=true] svg {
+.accordeon .accordeon-header svg {
+  transition: transform.5s ease-in;
+}
+
+
+.accordeon .accordeon-header svg {
   transform: rotate(180deg);
 }

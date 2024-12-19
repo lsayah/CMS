@@ -1,4 +1,5 @@
 import "./Post.css"
+import { PlusCircle } from "lucide-react";
 import LabelInput from "../../components/InputField";
 import PostEditor from "../../components/PostEditor/PostEditor";
 import TagSelector from "../../components/TagSelector/TagSelector";
@@ -14,23 +15,26 @@ export default function CreatePost() {
         <LabelInput id="post_title" label="Title" />
         <div className="label-input" >
           <label className="label-input" htmlFor="post_image"> Choose post image </label>
-          <ImagePicker id="post_image"/>
+          <ImagePicker id="post_image" />
         </div>
       </div>
       <div className="label-input" >
         <label className="label-input" htmlFor="post_content"> Content </label>
-        <PostEditor id="post_content"/>
+        <PostEditor id="post_content" />
       </div>
-    <div className="create-post-footer">
-      <div className="label-input" >
-        <label htmlFor="post_tags">   Choose post categories </label>
-        <TagSelector id="post_tags"/>
+      <div className="create-post-footer">
+        <div className="label-input" >
+          <label htmlFor="post_tags">   Choose post categories </label>
+          <TagSelector id="post_tags">
+            <PlusCircle />
+            <span> Ajouter </span>
+          </TagSelector>
+        </div>
+        <div className="create-post-actions">
+          <Button> Continue later</Button>
+          <Button> Publish </Button>
+        </div>
       </div>
-      <div className="create-post-actions">
-        <Button> Continue later</Button>
-        <Button> Publish </Button>
-      </div>
-    </div>
     </div>
   );
 }

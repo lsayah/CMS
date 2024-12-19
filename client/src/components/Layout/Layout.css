@@ -7,6 +7,9 @@
   margin-inline: auto;
   width: fit-content;
   align-items: center;
+  padding: 1rem;
+  border: 1px solid #3E455E;
+  border-radius: 1rem;
   gap: 1rem;
   font-size: 0.725rem;
 }
@@ -26,16 +29,7 @@
 }
 
 .main-layout aside {
-  width: 300px;
-  background-color: #202433;
-  border-right: 1px solid #383F58;
-  transform: translateX(0);
-  transition: all .5s ease-in;
-}
-
-.main-layout aside[data-open=false] {
-  width: 0px;
-  transform: translateX(-300px);
+  display: none;
 }
 
 .main-layout .sidebar-navigation {
@@ -70,4 +64,17 @@
     left: 1rem;
   }
 
+
+  .main-layout aside {
+    display: block;
+    width: 300px;
+    background-color: #202433;
+    border-right: 1px solid #383F58;
+    transition: all .5s ease-in;
+  }
+
+  .main-layout aside[data-open=false] {
+    width: 0px;
+    transform: translateX(-300px);
+  }
 }

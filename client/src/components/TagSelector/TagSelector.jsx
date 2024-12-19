@@ -1,25 +1,12 @@
 import "./TagSelector.css"
 import Button from "../Button";
+import { useTagListQuery } from "../../hooks/tag.js"
 
-function useTagListQuery() {
-  return [{
-    id: 1,
-    name: "tech"
-  }, {
-    id: 2,
-    name: "cyber"
-  }, {
-    id: 3,
-    name: "finance"
-  }, {
-    id: 4,
-    name: "advice"
-  }]
-}
-export default function TagSelector(props) {
+export default function TagSelector({ id, children }) {
   const tagList = useTagListQuery();
-  return <div className="tag-list" id={props.id}>
+  return <div className="tag-list" id={id}>
     {tagList.map(tag => <Button> {tag.name} </Button >)}
+    <Button> {children}</Button>
   </div>
 
 }

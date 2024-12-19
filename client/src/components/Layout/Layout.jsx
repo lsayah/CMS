@@ -1,13 +1,16 @@
 import "./Layout.css"
+import { Outlet } from "react-router";
 import Navigation from "../Navigation/Navigation"
 import PanelLeftClose from "../../assets/icons/PanelLeftClose.svg"
 import PanelLeftOpen from "../../assets/icons/PanelLeftOpen.svg"
 import { useState } from "react";
 import Accordeon from "../Accordeon/Accordeon";
+import FilterPost from "../FilterPost/FilterPost";
+import FollowsList from "../FollowsList/FollowsList";
 import Button from "../Button";
 import { Coffee } from "lucide-react";
 
-export default function Layout({ children }) {
+export default function Layout() {
   const [isNavOpen, setIsNavOpen] = useState(true);
 
   const toggleNav = () => {
@@ -20,32 +23,24 @@ export default function Layout({ children }) {
       </div>
     </div>
     <div className="content">
-      <aside className="sidebar"  data-open={isNavOpen}>
+      <aside className="sidebar" data-open={isNavOpen}>
         <div className="sidebar-navigation">
-          <Navigation /> 
+          <Navigation />
           <Accordeon label="Filters">
-            qbsoidbdio
-            qbsoidbdio
-            qbsoidbdio
-            qbsoidbdio
-            qbsoidbdio
-              </Accordeon>
-          <Accordeon label="Follows"> 
-            qbsoidbdio
-            qbsoidbdio
-            qbsoidbdio
-            qbsoidbdio
-            qbsoidbdio
-            </Accordeon>
-          <Button className="coffee-button"> Pay us a coffee  <Coffee/> </Button>
-      </div>
+            <FilterPost />
+          </Accordeon>
+          <Accordeon label="Follows">
+            <FollowsList />
+          </Accordeon>
+          <Button className="coffee-button"> Pay us a coffee  <Coffee /> </Button>
+        </div>
       </aside>
       <div className="content-wrapper">
         <span onClick={toggleNav}>
           {isNavOpen ? <img src={PanelLeftClose} /> : <img src={PanelLeftOpen} />}
         </span>
         <main>
-          {children}
+          <Outlet />
         </main>
       </div>
     </div>
