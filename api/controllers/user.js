@@ -36,7 +36,15 @@ export async function createUser(req, res) {
       ...req.body,
     });
 
-    tagRepository.saveUserFavorite(idUser, req.body.tags);
+    tagRepository.saveUserFavorite(
+      idUser,
+      req.body.tags.split(",").map(Number)
+    );
+
+    if (req.file) {
+      const Picture = `/pictures/${req.file.filename}`;
+      await userRepository.updateProfilPicture(idUser, Picture);
+    }
 
     res.status(201).json({
       message: "User created successfully",

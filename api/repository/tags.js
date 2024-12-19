@@ -12,8 +12,9 @@ class TagRepository {
     return result.insertId;
   }
 
-  async savePostTags(tags, idPost) {
-    const value = tags.map((tagId) => [idPost, tagId]);
+  async savePostTags(tagsId, idPost) { 
+    console.log(tagsId);
+    const value = tagsId.map((tagId) => [idPost, tagId]);
     const [result] = await this.connection.query(
       `INSERT INTO posts_contain_tags (id_post, id_tag) VALUES ?`,
       [value]

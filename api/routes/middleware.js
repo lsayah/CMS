@@ -1,5 +1,18 @@
 import { revokedTokens } from "../controllers/authentification.js"; // ajout logout
 import jwt from "jsonwebtoken";
+import multer from "multer";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// MIME_TYPE Dictionary
+const MIME_TYPE_MAP = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/gif": "gif",
+};
 
 export function validateArticle(schema) {
   return async (req, res, next) => {
@@ -23,16 +36,15 @@ export const getJWTconfig = () => ({
   algorithms: ["HS256"],
 });
 
-//ajout logout
+//logout
 
 export const checkRevokedToken = (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1]; // Récupère le token
+  const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
     return res.status(401).json({ message: "Token manquant" });
   }
 
-  // Vérifie si le token a été révoqué
   if (revokedTokens.has(token)) {
     return res
       .status(401)
@@ -41,10 +53,29 @@ export const checkRevokedToken = (req, res, next) => {
 
   try {
     const jwtConfig = getJWTconfig();
-    const user = jwt.verify(token, jwtConfig.secret); // Valide le token
-    req.user = user; // Ajoute l'utilisateur validé à la requête
-    next(); // Passe à la route suivante
+    const user = jwt.verify(token, jwtConfig.secret);
+    req.user = user;
+    next();
   } catch (error) {
     return res.status(403).json({ message: "Token invalide." });
   }
 };
+
+//Upload Image
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "../pictures"));
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const extension = MIME_TYPE_MAP[file.mimetype];
+    if (!extension) {
+      return cb(new Error("Type de fichier non pris en charge"));
+    }
+
+    cb(null, uniqueSuffix + "-" + path.extname(file.originalname));
+  },
+});
+
+export const uploadProfilPicture = multer({ storage }).single("Picture");
+

@@ -1,13 +1,12 @@
 import { config } from "dotenv";
 import { readFileSync } from "fs";
-import path from "path";
+import path, { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { parse } from "yaml";
 import { serve, setup } from "swagger-ui-express";
 import express, { json, urlencoded, static as staticFile } from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import { join } from "path";
 import { getJWTconfig } from "./routes/middleware.js";
 import { expressjwt as jwt } from "express-jwt";
 
@@ -17,6 +16,7 @@ import usersRouter from "./routes/users.js";
 import postRouter from "./routes/posts.js";
 import tagsRouter from "./routes/tags.js";
 import authRouter from "./routes/authentification.js";
+import commentsRouter from "./routes/comments.js";
 const file = readFileSync("./api.yml", "utf8");
 const swaggerDocument = parse(file);
 config();
@@ -27,24 +27,29 @@ app.use(logger("dev"));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(staticFile(join(dirname(fileURLToPath(import.meta.url)), "public")));
 app.use(
-  staticFile(join(path.dirname(fileURLToPath(import.meta.url)), "public"))
+  jwt(jwtConfig).unless({
+    path: [
+      new RegExp("/api/doc/*"),
+      "/api/auth/login",
+      {
+        url: "/api/posts",
+        methods: ["GET"],
+      },
+    ],
+  })
 );
-app.use(jwt(jwtConfig).unless({ path: ["/api", "/api/auth/login"] }));
-app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/users", usersRouter);
 app.use("/api/posts", postRouter);
+app.use("/api/comments", commentsRouter);
 app.use("/api/tags", tagsRouter);
-app.use("/api", serve, setup(swaggerDocument));
 app.use("/", indexRouter);
-app.use(function (err, req, res, next) {
-  if (err.name === "UnauthorizedError") {
-    res.status(401).send({
-      status: "echec",
-      message: "token invalide",
-    });
-  } else {
-    next(err);
-  }
+app.use("/api/doc", serve, setup(swaggerDocument));
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.json({ error: err.message });
 });
+
 export default app;
