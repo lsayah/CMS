@@ -1,7 +1,6 @@
 import getConnection from "../connection.js";
 import PostRepository from "../repository/post.js";
 import TagRepository from "../repository/tags.js";
-import { uploadProfilPicture } from "../routes/middleware.js";
 
 export async function postArticle(req, res) {
   const connection = await getConnection();
@@ -12,11 +11,11 @@ export async function postArticle(req, res) {
     const body = req.body;
 
     if (req.file) {
-      body.picture = `/pictures/${req.file.filename}`;
+      body.Picture = `/pictures/${req.file.filename}`;
     }
 
     const idPost = await postRepository.createPost({ ...body, id_user: id });
-    tagRepository.savePostTags(body.tags, idPost);
+    tagRepository.savePostTags(body.tags.split(",").map(Number), idPost);
 
     res.status(201).json({
       success: true,

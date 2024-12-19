@@ -8,7 +8,7 @@ class PostRepository {
       `INSERT INTO posts 
       (title, content, pictures,  id_user) 
       VALUES (?, ?, ?, ?)`,
-      [post.title, post.content, post.picture, post.id_user]
+      [post.title, post.content, post.pictures, post.id_user]
     );
     return result.insertId;
   }

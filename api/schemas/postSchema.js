@@ -9,7 +9,7 @@ export const postSchema = z.object({
     .trim()
     .min(3, "Le titre doit contenir au moins 3 caractères"),
 
-  picture: z.string(),
+  Picture: z.string().optional(),
   content: z
     .string({
       required_error: "Le contenu est requis",
@@ -17,5 +17,8 @@ export const postSchema = z.object({
     .trim()
     .min(10, "Le contenu doit contenir au moins 10 caractères"),
 
-  tags: z.array(z.number()).min(1, "selectionner au moins une tag"),
+    tags: z.preprocess(
+      (value) => value.split(",").map(Number),
+      z.array(z.number()).min(1)
+    ),
 });
