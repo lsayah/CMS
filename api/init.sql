@@ -56,6 +56,7 @@ CREATE TABLE comments (
     id_users INT NOT NULL,
     id_post INT NOT NULL,
     id_comment_parent INT,
+    content VARCHAR(500),
     PRIMARY KEY (id),
     FOREIGN KEY (id_users) REFERENCES users(id),
     FOREIGN KEY (id_post) REFERENCES posts(id),
