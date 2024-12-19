@@ -33,15 +33,20 @@ export async function getPostsByTags(req, res) {
   const connection = await getConnection();
   const postRepository = new PostRepository(connection);
   try {
-    const { tags } = req.query;
-    if (!tags) {
+    const { tags, query } = req.query;
+    let posts;
+
+    if (query) {
+      posts = await postRepository.findPostsByQuery(query);
+    } else if (tags) {
+      const tagsArray = tags.split(",");
+      posts = await postRepository.findPostsByTags(tagsArray);
+    } else {
       return res.status(400).json({
         success: false,
-        message: "Tags query parameter is required",
+        message: "Either tags or query parameter is required",
       });
     }
-    const tagsArray = tags.split(",");
-    const posts = await postRepository.findPostsByTags(tagsArray);
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({

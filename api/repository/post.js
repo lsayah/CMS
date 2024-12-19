@@ -16,14 +16,21 @@ class PostRepository {
   async findPostsByTags(tags) {
     const [result] = await this.connection.query(
       `SELECT p.* FROM posts p
-      JOIN users_choose_tags uct ON p.id_user = uct.id_user
+      JOIN posts_contain_tags uct ON p.id = uct.id_post
       WHERE uct.id_tag IN (?)`,
       [tags]
     );
     return result;
   }
+
+  async findPostsByQuery(query) {
+    const [result] = await this.connection.query(
+      `SELECT p.* FROM posts p
+      WHERE p.title LIKE ? OR p.content LIKE ?`,
+      [`%${query}%`, `%${query}%`]
+    );
+    return result;
+  }
 }
-
-
 
 export default PostRepository;

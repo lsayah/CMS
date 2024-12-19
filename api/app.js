@@ -29,7 +29,14 @@ app.use(cookieParser());
 app.use(staticFile(join(dirname(fileURLToPath(import.meta.url)), "public")));
 app.use(
   jwt(jwtConfig).unless({
-    path: [new RegExp("/api/doc/*"), "/api/auth/login"],
+    path: [
+      new RegExp("/api/doc/*"),
+      "/api/auth/login",
+      {
+        url: "/api/posts",
+        methods: ["GET"],
+      },
+    ],
   })
 );
 app.use("/api/auth", authRouter);
