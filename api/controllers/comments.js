@@ -24,3 +24,20 @@ export async function postComment(req, res) {
     });
   }
 }
+
+export async function getCommentsByPostId(req, res) {
+  const connection = await getConnection();
+  const commentRepository = new CommentRepository(connection);
+  try {
+    const { postId } = req.params;
+    const comments = await commentRepository.getCommentsByPostId(postId);
+    res.status(200).json({
+      success: true,
+      data: comments,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  } }

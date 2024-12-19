@@ -12,6 +12,14 @@ class CommentRepository {
       );
       return result.insertId;
     }
+
+    async getCommentsByPostId(postId) {
+      const [rows] = await this.connection.query(
+        `SELECT * FROM comments WHERE id_post = ?`,
+        [postId]
+      );
+      return rows;
+    }
   }
   
   export default CommentRepository;

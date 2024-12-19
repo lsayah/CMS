@@ -363,10 +363,16 @@ paths:
     get:
       tags:
         - comments
-        - posts
       summary: Obtenir les commentaires d'un article
       description: Récupérer les commentaires d'un article spécifique
       operationId: getComments
+      parameters:
+        - name: postId
+          in: path
+          description: ID de l'article
+          required: true
+          schema:
+            type: integer
       responses:
         "200":
           description: Liste des commentaires récupérée avec succès
@@ -380,35 +386,49 @@ paths:
           description: Paramètres de requête invalides
         "404":
           description: Ressource parente non trouvée
+        "500":
+          description: Erreur interne du serveur
 
   /api/comments:
     post:
       tags:
         - comments
       summary: Ajouter un commentaire à un article
-      description: Ajouter un commentaire à un article en spécifiant l'ID de l'article et le texte du commentaire
-      operationId: addComment
+      description: Ajouter un commentaire à un article en fournissant l'ID de l'article et le contenu du commentaire
+      security:
+        - BearerAuth: []
       requestBody:
-        description: Ajouter un commentaire à un article
+        description: Créer un nouveau commentaire
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Comment"
-        required: true
+              $ref: '#/components/schemas/Comment'
       responses:
         "201":
-          description: Commentaire ajouté avec succès
+          description: Commentaire créé avec succès
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Comment"
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: ID du commentaire créé
+                  postId:
+                    type: integer
+                    description: ID de l'article
+                  content:
+                    type: string
+                    description: Contenu du commentaire
+                  id_comment_parent:
+                    type: integer
+                    description: ID du commentaire parent (facultatif)
+                    nullable: true
         "400":
-          description: Commentaire invalide
-        "404":
-          description: Article non trouvé
-        "422":
-          description: Erreur de validation
-
+          description: Requête invalide
+        "500":
+          description: Erreur interne du serveur
+          
   /api/comments/{commentId}:
     put:
       tags:
