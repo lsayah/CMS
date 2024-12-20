@@ -7,7 +7,6 @@
   padding: 0.5rem 1rem;
 }
 
-
 #create-post-page .post-meta {
   margin-top: 2rem;
 }
@@ -16,7 +15,6 @@
   padding: 0.5rem 1rem;
 }
 
-
 .create-post-actions {
   display: flex;
   flex-direction: column;
@@ -24,8 +22,14 @@
   align-items: end;
 }
 
-@media (min-width: 768px) {}
-
+#create-post-page ul {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  list-style: none;
+}
+@media (min-width: 768px) {
+}
 
 @media (min-width: 1024px) {
   #create-post-page .post-meta {
@@ -34,7 +38,7 @@
     flex-wrap: wrap;
   }
 
-  #create-post-page .post-meta>* {
+  #create-post-page .post-meta > * {
     flex: 1;
   }
 
