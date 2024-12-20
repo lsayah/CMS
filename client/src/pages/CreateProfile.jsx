@@ -4,11 +4,11 @@ import "../styles/CreateProfile.css";
 export default function Feed() {
   return (
     <div>
-      <div class="welcome-container">
+      <div className="welcome-container">
         <h1>Welcome</h1>
         <h3>Tell us more about you.</h3>
       </div>
-      <div class="form-container">
+      <div className="form-container">
         <h2>First Name</h2>
         <InputField type="string" placeholder="First name" />
         <h2>Last Name</h2>
@@ -22,7 +22,7 @@ export default function Feed() {
         <h2>About you</h2>
         <InputField type="string" placeholder="About you" />
       </div>
-      <div class="image-banner-container">
+      <div className="image-banner-container">
         <h2>Profile picture</h2>
         <InputField type="file" placeholder="Import from" />
         <h2>Banner picture</h2>

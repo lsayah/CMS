@@ -4,11 +4,13 @@ import "../styles/Login.css";
 import Button from "../components/Button.jsx";
 import LabelInput from "../components/InputField.jsx";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/Auth/Auth.jsx";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const { login } = useAuth();
 
   const navigate = useNavigate();
 
@@ -31,73 +33,75 @@ export default function Login() {
       }
 
       const data = await response.json();
-      localStorage.setItem("token", data.token);
+      login(data.token);
       navigate("/");
     } catch (error) {
       setMessage(error.message);
     }
   };
 
-  return <>
-    <div className="login-hero login-hero-full">
-      <p></p>
-      <p>
+  return (
+    <>
+      <div className="login-hero login-hero-full">
+        <p></p>
+        <p>
+          <strong>
+            <span className="font-unique">P</span>eople's
+            <br />
+            HUB
+          </strong>
+        </p>
+        <p>
+          <strong>S</strong>hare, <strong>L</strong>earn, <strong>G</strong>row{" "}
+          <strong>T</strong>ogether
+        </p>
+      </div>
+      <p className="login-hero login-hero-section">
         <strong>
           <span className="font-unique">P</span>eople's
           <br />
           HUB
         </strong>
       </p>
-      <p>
-        <strong>S</strong>hare, <strong>L</strong>earn, <strong>G</strong>row <strong>T</strong>ogether
+      <div className="login-form">
+        <h1>Login</h1>
+        <form onSubmit={handleLogin}>
+          <LabelInput
+            id="email"
+            type="email"
+            label="Email"
+            placeholder="john.doe@gmail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <LabelInput
+            id="password"
+            type="password"
+            label="Password"
+            placeholder="********"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <LabelInput
+            type="checkbox"
+            id="RememberMe"
+            label="Remember Me"
+            name="interest"
+            value="RememberMe"
+          />
+          <div className="login-actions">
+            <Button type="submit"> Log In </Button>
+            <Button onClick={() => navigate(RoutesDefinition.SIGNUP)}>
+              Sign up
+            </Button>
+          </div>
+        </form>
+        {message && <p>{message}</p>}{" "}
+      </div>
+      <p className="login-hero login-hero-section">
+        <strong>S</strong>hare, <strong>L</strong>earn, <strong>G</strong>row{" "}
+        <strong>T</strong>ogether
       </p>
-    </div>
-    <p class="login-hero login-hero-section">
-      <strong>
-        <span className="font-unique">P</span>eople's
-        <br />
-        HUB
-      </strong>
-    </p>
-    <div className="login-form">
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
-        <LabelInput
-          id="email"
-          type="email"
-          label="Email"
-          placeholder="john.doe@gmail.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <LabelInput
-          id="password"
-          type="password"
-          label="Password"
-          placeholder="********"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <LabelInput
-          type="checkbox"
-          id="RememberMe"
-          label="Remember Me"
-          name="interest"
-          value="RememberMe"
-        />
-        <div className="login-actions">
-          <Button type="submit"> Log In </Button>
-          <Button
-            onClick={() => navigate(RoutesDefinition.SIGNUP)}
-          >
-            Sign up
-          </Button>
-        </div>
-      </form>
-      {message && <p>{message}</p>}{" "}
-    </div>
-    <p class="login-hero login-hero-section">
-      <strong>S</strong>hare, <strong>L</strong>earn, <strong>G</strong>row <strong>T</strong>ogether
-    </p>
-  </>
+    </>
+  );
 }
