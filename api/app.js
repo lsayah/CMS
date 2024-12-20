@@ -37,6 +37,14 @@ app.use(
         url: "/api/posts",
         methods: ["GET"],
       },
+      {
+        url: "/api/tags",
+        methods: ["GET"],
+      },
+      {
+        url: "/api/users",
+        methods: ["POST"],
+      },
     ],
   })
 );

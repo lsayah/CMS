@@ -20,15 +20,24 @@ export async function login(req, res) {
   }
   const jwtConfig = getJWTconfig();
   console.log(jwtConfig);
-  const { hashed_password: hashedPassword, role, id } = existinguser;
+  const {
+    hashed_password: hashedPassword,
+    role,
+    firstname,
+    lastname,
+    username,
+    id,
+  } = existinguser;
   if (await compare(password, hashedPassword)) {
-    const token = jwt.sign({ email, role, id }, jwtConfig.secret, {
-      algorithm: jwtConfig.algorithms[0],
-      expiresIn: "1h",
-    });
-    res
-    .status(200)
-    .json({
+    const token = jwt.sign(
+      { email, role, firstname, lastname, username, id },
+      jwtConfig.secret,
+      {
+        algorithm: jwtConfig.algorithms[0],
+        expiresIn: "1h",
+      }
+    );
+    res.status(200).json({
       token,
       message: "Authentification réussi",
     });
@@ -39,20 +48,19 @@ export async function login(req, res) {
   }
 }
 
-
 // logout test
 
 export function logout(req, res) {
-    const token = req.headers.authorization?.split(" ")[1]; 
-  
-    if (!token) {
-      return res.status(400).json({ message: "Token manquant" });
-    }
-  
-    // Ajouter le token à la liste des tokens révoqués
-    revokedTokens.add(token);
-    res.status(200).json({ message: "Déconnexion réussie" });
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(400).json({ message: "Token manquant" });
   }
-  
-  // Exporter la liste des tokens révoqués pour les middlewares
-  export { revokedTokens };
+
+  // Ajouter le token à la liste des tokens révoqués
+  revokedTokens.add(token);
+  res.status(200).json({ message: "Déconnexion réussie" });
+}
+
+// Exporter la liste des tokens révoqués pour les middlewares
+export { revokedTokens };
